@@ -24,7 +24,7 @@ Item {
     property real mediumSpacing: 1.5*units.smallSpacing
     property real textHeight: theme.defaultFont.pixelSize + theme.smallestFont.pixelSize + units.smallSpacing
     property real itemHeight: Math.max(units.iconSizes.medium, textHeight)
-
+    
     Layout.minimumWidth: widgetWidth
     Layout.minimumHeight: (itemHeight + 2*mediumSpacing) * listView.count
 
@@ -120,7 +120,14 @@ Item {
                             })
                         } else {
                             plasmoid.expanded = false
-                            Qt.openUrlExternally(model['url'])
+                            console.log(model['url'])
+                            var opening = model['url'].toString()
+                            if (opening.startsWith("file:///"))
+                              opening = opening + "/"
+                            if (opening == "file:////")
+                              opening = 'xdg-open "file:///"'
+                            console.log(opening)
+                            Qt.openUrlExternally(opening)
                         }
                     }
 
